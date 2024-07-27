@@ -1,10 +1,6 @@
-// controllers/tireControllers.js
 const Tire = require("../model/tire"); // Update the path as needed
 const TireSale = require("../model/TireSale");
 const User = require("../model/User");
-const { storage } = require("../services/cloudinaryConfig");
-const multer = require("multer");
-const upload = multer({ storage }).array("images");
 
 exports.getAllTires = async (req, res) => {
   try {
@@ -82,7 +78,6 @@ exports.searchTires = async (req, res) => {
   }
 };
 
-// Other functions you provided earlier
 exports.findTiresBySize = async (req, res) => {
   try {
     const size = req.query.size;
@@ -152,7 +147,6 @@ exports.getTireBrands = async (req, res) => {
   }
 };
 
-//------------------------------------
 exports.markTireAsNotSold = async (req, res) => {
   try {
     const tireId = req.params.id;
@@ -170,8 +164,6 @@ exports.markTireAsNotSold = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
-
-//------------------------------------
 
 exports.searchTiresByRSize = async (req, res) => {
   try {
