@@ -132,3 +132,26 @@ exports.getReportsByDateRange = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
+exports.getMostCommonlySoldTires = async (req, res) => {
+  try {
+    const result = await TireSale.aggregate([
+      {
+        $group: {
+          _id: "$size",
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $sort: { count: -1 },
+      },
+      {
+        $limit: 5,
+      },
+    ]);
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

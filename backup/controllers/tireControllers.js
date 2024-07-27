@@ -2,6 +2,9 @@
 const Tire = require("../model/tire"); // Update the path as needed
 const TireSale = require("../model/TireSale");
 const User = require("../model/User");
+const { storage } = require("../services/cloudinaryConfig");
+const multer = require("multer");
+const upload = multer({ storage }).array("images");
 
 exports.getAllTires = async (req, res) => {
   try {
@@ -14,7 +17,13 @@ exports.getAllTires = async (req, res) => {
 
 exports.addTire = async (req, res) => {
   try {
-    const newTire = new Tire(req.body);
+    const images = req.files ? req.files.map((file) => file.path) : [];
+    const tireData = {
+      ...req.body,
+      imageUrls: images,
+      listingDate: new Date(),
+    };
+    const newTire = new Tire(tireData);
     await newTire.save();
     res.status(201).json(newTire);
   } catch (error) {

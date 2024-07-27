@@ -11,5 +11,6 @@ router.get("/all-sales", tireSaleAnalyticsController.getAllSales);
 
 // New routes for tireSaleController
 router.get("/reports-by-date-range", tireSaleController.getReportsByDateRange);
+router.get("/most-common-sold", tireSaleController.getMostCommonlySoldTires);
 
 module.exports = router;
